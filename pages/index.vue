@@ -50,6 +50,7 @@
 	body {
 		overscroll-behavior: none;
 		overflow: hidden;
+		background-color: #000;
 	}
 	* {
 		color: #fff;

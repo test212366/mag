@@ -558,7 +558,7 @@ import model from '../public/iphone_14_pro.glb'
 			this.meshTextTitleOne = createText('Electronics', 0.0038, 37,  - this.height / 1000, .12)
 		}
 		if(this.width <= 550) {
-			this.meshTextTitleOne = createText('Electronics', 0.0035, 37,  -.6, .85)
+			this.meshTextTitleOne = createText('Electronics', 0.0032, 37,  -.6, .85)
 		}
 
 
@@ -578,7 +578,7 @@ import model from '../public/iphone_14_pro.glb'
 			this.meshTextTitleTw = createText('Workshop', 0.0038, 37, -.4, -.21)
 		}
 		if(this.width <= 550) {
-			this.meshTextTitleTw = createText('Workshop', 0.0035, 37, -.2, .6)
+			this.meshTextTitleTw = createText('Workshop', 0.0032, 37, -.16, .66)
 
 		}
 
@@ -614,7 +614,7 @@ import model from '../public/iphone_14_pro.glb'
 			this.meshTextTitleTr = createText(`Welcome to ALMA. We are a leading provider of
 			computers and computer services with over five
 			 years experience in the market. 
-			`, 0.0009, 75, -.38, -1.3)
+			`, 0.0009, 75, -.45, -1.3)
 		
 		}
 
@@ -637,7 +637,7 @@ import model from '../public/iphone_14_pro.glb'
 		}
 
 		if(this.width <= 550) { 
-			this.meshTextTitleFr = createText('Welcome', 0.0008, 37, -.0 , -.96)
+			this.meshTextTitleFr = createText('Welcome', 0.0008, 37, -.062 , -.96)
 
 		}
 
@@ -1199,51 +1199,64 @@ import model from '../public/iphone_14_pro.glb'
 		const light1 = new THREE.DirectionalLight(0x3F6C90, 1.)
 			light1.position.set(0.4,.15,0.14)
 
-		if(this.position <= 1250) {
+		if(this.width <= 1250) {
 			light1.position.set(0.3,.15,0.14)
 
 		}
-		if(this.position <= 900) {
+		if(this.width <= 900) {
 			light1.position.set(0.27,.15,0.14)
+
+		}
+		if(this.width <= 550) {
+			light1.position.set(0.12,.11,0.14)
 
 		}
 
 
 		const light2 = new THREE.DirectionalLight(0x3F6C90, 1)
 			light2.position.set(-.8,-.24,-.59)
-		if(this.position <= 1250) {
+		if(this.width <= 1250) {
 			light2.position.set(-.65,-.24,-.59)
 		}
-		if(this.position <= 900) {
+		if(this.width <= 900) {
 			light2.position.set(-.5,-.24,-.59)
-
-
+		}
+		if(this.width <= 550) {
+			light2.position.set(-.4,-.24,-.59)
 		}
 
 		const light3 = new THREE.DirectionalLight(0x3F6C90, 1)
 			light3.position.set(-.8,-.28,-.32)
-		if(this.position <= 1250) {
+		if(this.width <= 1250) {
 			light3.position.set(-.65,-.28,-.32)
 
 		}
-		if(this.position <= 900) {
+		if(this.width <= 900) {
 			light3.position.set(-.5,-.28,-.32)
 
 		}
+		if(this.width <= 550) {
+			light3.position.set(.2,-.7,-.3)
+		}
+
+
 		const light4 = new THREE.DirectionalLight(0x3F6C90, 1.)
 			light4.position.set(0.1,-1., .4)
-		if(this.position <= 1250) {
+		if(this.width <= 1250) {
 			light4.position.set(-0.15,-1., .4)
 		}
+
+
+
 		const light5 = new THREE.DirectionalLight(0x3F6C90, 1.)
 			light5.position.set(-.2,.4, 0)
-		if(this.position <= 1250) {
+		if(this.width <= 1250) {
 			light5.position.set(-.45,.4, 0)
 
 		}
 		const light6 = new THREE.DirectionalLight(0x3F6C90, 1.)
 			light6.position.set(0,0.4, .2)
-			if(this.position <= 1250) {
+			if(this.width <= 1250) {
 				light6.position.set(-.25,0.4, .2)
 
 	
@@ -1251,12 +1264,13 @@ import model from '../public/iphone_14_pro.glb'
 		const light7 = new THREE.DirectionalLight(0x3F6C90, 1.)
 			light7.position.set(-0.2,-0.8, .3)
 
-			if(this.position <= 1250) {
+			if(this.width <= 1250) {
 				light7.position.set(-0.45,-0.8, .3)
 
 
 	
 			}
+
 
 		this.scene.add(light1)
 		this.scene.add(light2)
@@ -1390,31 +1404,58 @@ import model from '../public/iphone_14_pro.glb'
 				if(this.position >= 2) {
 					this.modelPhone.position.x = -3. + this.position 
 					this.modelPhone.position.y = -1.05 + this.position * .5
+					
+					if(this.width <= 1250) {
+						this.modelPhone.position.x = -2.6 + this.position 
+						this.modelPhone.position.y = -1.1 + this.position * .5
+					}
+					if(this.width <= 550) {
+						this.modelPhone.position.x = -2.7 + this.position 
+						this.modelPhone.position.y = -1.105 + this.position * .5
+					}
 
-					// this.model.position.x = -2.3 + (this.position - 0.5)
+				
 				} else {
 					//move left
 					this.modelPhone.position.x = 1. - this.position 
 					this.model.position.x = .7 - (this.position - 0.5)
 
 					if(this.width <= 1250) {
-						this.modelPhone.position.x = 1. - this.position  - .27
-						this.model.position.x = .7 - (this.position - 0.5 + .27)
+						this.modelPhone.position.x = 1. - this.position / 1.5 - .27
+						this.model.position.x = .7 - (this.position / 1.5 - 0.5 + .27)
 					}
 					if(this.width <= 900) {
-						this.modelPhone.position.x = 1. - this.position  - .37
-						this.model.position.x = .7 - (this.position - 0.5 + .37)
+						this.modelPhone.position.x = 1. - this.position / 1.5  - .37
+						this.model.position.x = .7 - (this.position / 1.5 - 0.5 + .37)
 					}
 
 					this.materialMirr.uniforms.uMouse.value = new THREE.Vector2(-this.position / 5 + 0.8, 0.2 )
 
+					if(this.width <= 550) {
+						this.modelPhone.position.x = .4 - this.position / 2.5  - .37
+						this.model.position.x = .1 - (this.position / 2.5 - 0.5 + .37)
+					}
+
 					//uMouse: { value: new THREE.Vector2(.8, 0.2) },
-					this.ringIn.position.x = 0.85 - (this.position - 0.5)
-					this.ringInClone.position.x = 0.85 - (this.position - 0.5)
-					this.ringOut.position.x = 0.85 - (this.position - 0.5)
-					this.ringOutClone.position.x = 0.85 - (this.position - 0.5)
+					if(this.width > 1250) {
+						this.ringIn.position.x = 0.85 - (this.position - 0.5)
+						this.ringInClone.position.x = 0.85 - (this.position - 0.5)
+						this.ringOut.position.x = 0.85 - (this.position - 0.5)
+						this.ringOutClone.position.x = 0.85 - (this.position - 0.5)
+					}
+ 
+				 
 				  
-					 
+					// if(this.width <= 1250) {
+
+
+
+					// 	/// #!@#@#!@#@!#
+					// 	this.ringIn.position.x = .85 + (this.position / 2 - 0.5)
+					// 	this.ringInClone.position.x = .85 + (this.position / 2 - 0.5)
+					// 	this.ringOut.position.x = .85 + (this.position / 2 - 0.5)
+					// 	this.ringOutClone.position.x = .85 + (this.position / 2 - 0.5)
+					// }
 
 					this.ringIn.position.y =  (-this.position / 4 )
 					this.ringInClone.position.y = (-this.position / 4 )
@@ -1470,17 +1511,23 @@ import model from '../public/iphone_14_pro.glb'
 					this.ringOut.position.x = 0.85 - (this.position - 0.5)
 					this.ringOutClone.position.x = 0.85 - (this.position - 0.5)
 					if(this.width < 1250) {
-						this.ringIn.position.x = 0.5 - (this.position - 0.5)
-						this.ringInClone.position.x = 0.5 - (this.position - 0.5)
-						this.ringOut.position.x = 0.5 - (this.position - 0.5)
-						this.ringOutClone.position.x = 0.5 - (this.position - 0.5)
+						this.ringIn.position.x = 0.5 - (this.position / 1.3 - 0.5)
+						this.ringInClone.position.x = 0.5 - (this.position / 1.3 - 0.5)
+						this.ringOut.position.x = 0.5 - (this.position / 1.3 - 0.5)
+						this.ringOutClone.position.x = 0.5 - (this.position / 1.3 - 0.5)
 					} 
 					if(this.width < 900) {
-						this.ringIn.position.x = 0.35 - (this.position - 0.5)
-						this.ringInClone.position.x = 0.35 - (this.position - 0.5)
-						this.ringOut.position.x = 0.35 - (this.position - 0.5)
-						this.ringOutClone.position.x = 0.35 - (this.position - 0.5)
+						this.ringIn.position.x = 0.35 - (this.position / 1.3  - 0.5)
+						this.ringInClone.position.x = 0.35 - (this.position / 1.3  - 0.5)
+						this.ringOut.position.x = 0.35 - (this.position / 1.3  - 0.5)
+						this.ringOutClone.position.x = 0.35 - (this.position / 1.3  - 0.5)
 					} 
+					if(this.width <= 550) {
+						this.ringIn.position.x = 4.55 + (this.position / 1.3  - 0.5)
+						this.ringInClone.position.x = 0.55 + (this.position / 1.3  - 0.5)
+						this.ringOut.position.x = 0.55 + (this.position / 1.3  - 0.5)
+						this.ringOutClone.position.x = 0.55 + (this.position / 1.3  - 0.5)
+					}
 				}
 				if(this.position >= 2.4) {
 					this.smallSphere.position.y = -this.position / 1.6 + 1.6 
@@ -1490,6 +1537,13 @@ import model from '../public/iphone_14_pro.glb'
 					this.ringInClone.position.x = (this.position - 2.935)
 					this.ringOut.position.x = (this.position - 2.935)
 					this.ringOutClone.position.x = (this.position - 2.935)
+					
+					if(this.width <= 550) {
+						this.ringIn.position.x = 3.9 + (-this.position / 1.3  - 0.5)
+						this.ringInClone.position.x = 3.9 + (-this.position / 1.3  - 0.5)
+						this.ringOut.position.x = 3.9 + (-this.position / 1.3  - 0.5)
+						this.ringOutClone.position.x = 3.9 + (-this.position / 1.3  - 0.5)
+					}
 				}
 		 
 
