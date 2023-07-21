@@ -103,6 +103,8 @@ import model from '../public/iphone_14_pro.glb'
 		  meshTextTitleTr:any
 		  meshTextTitleFr:any
 		  load:any
+		  isTouching:any
+		  startY: any
 
 		constructor(options: any) {
 			
@@ -180,6 +182,15 @@ import model from '../public/iphone_14_pro.glb'
 
 				this.modelPhone = this.model.clone()
 				this.modelPhone.scale.set(7,4.2,7)
+				if(this.width <= 550) {
+
+					this.model.scale.set(4,2,4)
+				 
+					// this.model.position.set(1000,-0.05,.5)
+
+					this.modelPhone.scale.set(5,2.2,5)
+
+				}
 				this.modelPhone.rotateZ(3.2)
 				this.modelPhone.position.set(1.,-.08,.5)
 
@@ -197,8 +208,56 @@ import model from '../public/iphone_14_pro.glb'
 			this.createText()
  
 			this.addLights()
-	 
-				
+			this.mobileEvent()
+			this.touchEvent()		
+		}
+		touchEvent() {
+			window.addEventListener('touchstart', (event) => {
+				this.isTouching = true; // Устанавливаем флаг, что происходит касание
+				this.startY = event.touches[0].clientY
+			});
+			 
+			 // Обработчик события touchend (окончание касания)
+			 window.addEventListener('touchend', (event) => {
+				this.isTouching = false; // Сбрасываем флаг, что происходит касание
+			 });
+		}
+		mobileEvent() {
+			window.addEventListener('touchmove', (event) => {
+				event.preventDefault(); // Отменяем стандартное поведение браузера при касании и перемещении пальца
+				const currentY = event.touches[0].clientY
+
+				if (this.isTouching) {
+				  // Получаем координаты касания пальца на экране
+				  const touchX = event.touches[0].clientX;
+				  const touchY = event.touches[0].clientY;
+					console.log(event)
+				//   if(e.deltaY / 100 < 0 && this.position <= 0 || e.deltaY / 100 > 0 && this.position >= 4. ) return 
+
+					 
+
+				  if (currentY < this.startY ) { 
+					// console.log( , this.position >= 4)
+					// if() return 
+					if(  this.position >= 4. ) return 
+
+						this.speed += touchY * 0.00001
+						 
+				  } else  {
+					if( this.position < 0 ) return 
+
+
+						this.speed -= touchY * 0.00001
+						// if(this.position <= 0 || this.position >= 4.) return 
+				  }
+
+				  this.startY = currentY
+			 
+				  // Выполняем необходимые действия при перемещении пальца, например, изменяем положение сцены
+				  // В этом месте вы можете добавить код, который будет прокручивать сцену на телефоне
+				  // Например, изменять положение камеры или объектов сцены в зависимости от движения пальца
+				}
+			 });
 		}
 
 		scrollEvent() {
@@ -315,6 +374,9 @@ import model from '../public/iphone_14_pro.glb'
 
 		this.ringOut = new THREE.Mesh( ring, this.materialRing )
 		this.ringOut.scale.set(.55,.55,.55)
+
+ 
+
 		this.ringOut.position.set(1.35,0,0)
 	
 
@@ -470,6 +532,14 @@ import model from '../public/iphone_14_pro.glb'
 		
 		this.ringIn = new THREE.Mesh( ring1, this.materialRingWhtie )
 		this.ringIn.scale.set(.323,.323,.323)
+
+		if(this.width <= 550) {
+			this.ringOut.scale.set(.4,.4,.4)
+			this.ringIn.scale.set(.235,.235,.235)
+
+		}
+
+
 		this.ringIn.position.set(1.35,0,0)
 
 
@@ -1169,6 +1239,7 @@ import model from '../public/iphone_14_pro.glb'
 			transparent: true,
 		 
 		})
+		// if(this.width <=550) this.materialMirr.uniforms.uMouse.value = new THREE.Vector2(.4, .1)
 		// this.smallSphere = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({
 		// 	roughness: 0.2,  
 		// 	transmission: 1., // Add transparency
@@ -1432,8 +1503,10 @@ import model from '../public/iphone_14_pro.glb'
 					this.materialMirr.uniforms.uMouse.value = new THREE.Vector2(-this.position / 5 + 0.8, 0.2 )
 
 					if(this.width <= 550) {
-						this.modelPhone.position.x = .4 - this.position / 2.5  - .37
-						this.model.position.x = .1 - (this.position / 2.5 - 0.5 + .37)
+						this.modelPhone.position.x = .35 - this.position / 2.5  - .37
+						this.model.position.x = -0.01 - (this.position / 2.5 - 0.5 + .37)
+						this.materialMirr.uniforms.uMouse.value = new THREE.Vector2(this.position / 5 + 0.55, 0.3 )
+
 					}
 
 					//uMouse: { value: new THREE.Vector2(.8, 0.2) },
@@ -1492,11 +1565,18 @@ import model from '../public/iphone_14_pro.glb'
 					this.smallSphere.position.y = -this.position / 2
 					this.line.position.y = -this.position / 2.1
 
-
-					this.ringIn.scale.set( - this.position / 1.7 + 0.32, - this.position / 1.7 + 0.32, -this.position / 1.7 + 0.32 )
-					this.ringInClone.scale.set( - this.position / 1.7 + 0.32, - this.position / 1.7 + 0.32, -this.position / 1.7 + 0.32 )
-					this.ringOut.scale.set( - this.position / 9.6 + .55 , - this.position / 9.6 + .55, -this.position / 9.6 + .55 )
-					this.ringOutClone.scale.set( - this.position / 9.6 + .55 , - this.position / 9.6 + .55, -this.position / 9.6 + .55 )
+					if(this.width > 550) {
+						this.ringIn.scale.set( - this.position / 1.7 + 0.32, - this.position / 1.7 + 0.32, -this.position / 1.7 + 0.32 )
+						this.ringInClone.scale.set( - this.position / 1.7 + 0.32, - this.position / 1.7 + 0.32, -this.position / 1.7 + 0.32 )
+						this.ringOut.scale.set( - this.position / 9.6 + .55 , - this.position / 9.6 + .55, -this.position / 9.6 + .55 )
+						this.ringOutClone.scale.set( - this.position / 9.6 + .55 , - this.position / 9.6 + .55, -this.position / 9.6 + .55 )
+						
+					} //else {
+					// 	this.ringIn.scale.set( - this.position / 2 + 0.32, - this.position / 1.7 + 0.32, -this.position / 1.7 + 0.32 )
+					// 	this.ringInClone.scale.set( - this.position / 2 + 0.32, - this.position / 1.7 + 0.32, -this.position / 1.7 + 0.32 )
+					// 	this.ringOut.scale.set( - this.position / 9.6 + .55 , - this.position / 9.6 + .55, -this.position / 9.6 + .55 )
+					// 	this.ringOutClone.scale.set( - this.position / 9.6 + .55 , - this.position / 9.6 + .55, -this.position / 9.6 + .55 )
+					// }
 					
 				}
 	 
@@ -1523,10 +1603,10 @@ import model from '../public/iphone_14_pro.glb'
 						this.ringOutClone.position.x = 0.35 - (this.position / 1.3  - 0.5)
 					} 
 					if(this.width <= 550) {
-						this.ringIn.position.x = 4.55 + (this.position / 1.3  - 0.5)
-						this.ringInClone.position.x = 0.55 + (this.position / 1.3  - 0.5)
-						this.ringOut.position.x = 0.55 + (this.position / 1.3  - 0.5)
-						this.ringOutClone.position.x = 0.55 + (this.position / 1.3  - 0.5)
+						this.ringIn.position.x = 0.515 + (this.position / 1.3  - 0.5)
+						this.ringInClone.position.x = .515 + (this.position / 1.3  - 0.5)
+						this.ringOut.position.x = .515 + (this.position / 1.3  - 0.5)
+						this.ringOutClone.position.x = .515 + (this.position / 1.3  - 0.5)
 					}
 				}
 				if(this.position >= 2.4) {

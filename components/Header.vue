@@ -1,5 +1,20 @@
 <script>
 
+	export default {
+		data() {
+			return {
+				openMenu: false
+			}
+		},
+		methods: {
+			toggleMenu() {
+				this.openMenu = !this.openMenu
+			}
+		}
+	}
+
+
+
 </script>
 
 <template>
@@ -28,9 +43,17 @@
 
 				</div>
 			</nav>
-			<button class="menu__mobile">
+			<button @click="toggleMenu" class="menu__mobile">
 				M <div></div>
 			</button>
+
+			<div id="menu__show-bar"  :class="{  'activeMenu' : openMenu }">
+				<p>MENU</p>
+				<button>About</button>
+				<button>Contacts</button>
+				<button>Store</button>
+
+			</div>
 		</div>
 		
 
@@ -42,8 +65,43 @@
 
 
 <style scoped>
+	#menu__show-bar {
+		display: none;
+		transition: .3s ease all;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		padding: 20px;
+		-webkit-backdrop-filter: blur(3px);
+		backdrop-filter: blur(5px);
+		position: absolute;
+		right: -100%;
+		top: 80px;
+		border-radius: 20px;
+		height: 180px;
+		width: 170px;
+
+		background-color: #39393933;
+	}
+	#menu__show-bar p {
+		font-size: 12px;
+		margin-bottom: 15px;
+	}
+	#menu__show-bar button {
+		width: 100%;
+		margin-bottom: 5px;
+		height: 30px;
+		background-color: transparent;
+		border: none;
+		text-decoration: underline;
+		font-size: 11px;
+		color: #ffffff;
+	}
 	.menu__mobile {
 		display: none;
+	}
+	.menu__mobile:hover > div {
+		width: 10px !important;
 	}
 	.logo__header {
 		font-size: 17px;
@@ -120,6 +178,9 @@
 		}
 	}
 	@media screen and (max-width: 900px) {
+		#menu__show-bar {
+			display: flex !important;
+		}
 		.logo__header {
 			font-size: 12px;
 		 
@@ -128,8 +189,8 @@
 			font-size: 11px;
 		}
 		.menu__mobile div {
-	 
-			width: 13px;
+			transition: .3s ease all;
+			width: 17px;
   
 		 
 		}

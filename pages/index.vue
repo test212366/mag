@@ -19,6 +19,9 @@
 
 
 <style  >
+	.activeMenu {
+		right: 30px !important;
+	}
 	.section__content {
 		height: 100vh;
 		display: flex;
